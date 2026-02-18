@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>A-Frame Classic Games</title>
+    <title>Juegos Clásicos - A-Frame</title>
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script>
-      // Componente para controlar la animación con la mirada
-      AFRAME.registerComponent('pause-on-look-away', {
+      // Componente para controlar animación y sonido con la mirada
+      AFRAME.registerComponent('interactive-look', {
         init: function () {
           let el = this.el;
-          // Al iniciar, pausamos las animaciones
-          el.pause(); 
+          el.pause(); // Pausar animación al inicio
           
           this.el.addEventListener('mouseenter', () => {
-            el.play(); // Se activa al mirar
+            el.play(); // Inicia animación
+            if (el.components.sound) {
+              el.components.sound.playSound(); // Inicia sonido si tiene el componente
+            }
           });
           
           this.el.addEventListener('mouseleave', () => {
-            el.pause(); // Se detiene al quitar la mirada
+            el.pause(); // Detiene animación
+            if (el.components.sound) {
+              el.components.sound.stopSound(); // Detiene sonido
+            }
           });
         }
       });
@@ -32,7 +37,7 @@
       </a-assets>
 
       <a-entity camera look-controls position="0 1.6 0">
-        <a-cursor color="#FF0000" fuse="false"></a-cursor>
+        <a-cursor color="#2EAFAC" fuse="false"></a-cursor>
       </a-entity>
 
       <a-entity 
@@ -40,27 +45,26 @@
         position="-2 1.5 -3" 
         scale="0.5 0.5 0.5"
         animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear"
-        pause-on-look-away>
+        interactive-look>
       </a-entity>
 
       <a-entity 
         gltf-model="#knight-model" 
         position="0 1 -3" 
-        scale="1 1 1"
-        animation="property: position; to: 0 1.5 -3; dir: alternate; loop: true; dur: 1000"
-        pause-on-look-away>
+        scale="0.5 0.5 0.5"
+        animation="property: position; to: 0 1.3 -3; dir: alternate; loop: true; dur: 1200"
+        interactive-look>
       </a-entity>
 
       <a-entity 
         gltf-model="#cat-model" 
         position="2 1.2 -3" 
-        scale="0.8 0.8 0.8"
-        animation="property: scale; to: 1 1 1; dir: alternate; loop: true; dur: 500"
-        sound="src: #cat-sound; on: mouseenter; loop: true"
-        pause-on-look-away>
+        scale="1.5 1.5 1.5"
+        animation="property: rotation; to: 0 -360 0; loop: true; dur: 2000; easing: linear"
+        sound="src: #cat-sound; loop: true; volume: 1"
+        interactive-look>
       </a-entity>
 
-      <a-sky color="#ECECEC"></a-sky>
-    </a-scene>
+      <a-sky color="#111"></a-sky> </a-scene>
   </body>
 </html>
