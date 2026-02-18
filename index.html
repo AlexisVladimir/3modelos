@@ -4,23 +4,22 @@
     <title>Juegos Clásicos - A-Frame</title>
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script>
-      // Componente para controlar animación y sonido con la mirada
       AFRAME.registerComponent('interactive-look', {
         init: function () {
           let el = this.el;
-          el.pause(); // Pausar animación al inicio
+          el.pause(); 
           
           this.el.addEventListener('mouseenter', () => {
-            el.play(); // Inicia animación
+            el.play(); 
             if (el.components.sound) {
-              el.components.sound.playSound(); // Inicia sonido si tiene el componente
+              el.components.sound.playSound(); 
             }
           });
           
           this.el.addEventListener('mouseleave', () => {
-            el.pause(); // Detiene animación
+            el.pause(); 
             if (el.components.sound) {
-              el.components.sound.stopSound(); // Detiene sonido
+              el.components.sound.stopSound(); 
             }
           });
         }
@@ -42,7 +41,7 @@
 
       <a-entity 
         gltf-model="#pacman-model" 
-        position="-2 1.5 -3" 
+        position="-5 1.5 -5" 
         scale="0.5 0.5 0.5"
         animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear"
         interactive-look>
@@ -50,21 +49,24 @@
 
       <a-entity 
         gltf-model="#knight-model" 
-        position="0 1 -3" 
+        position="0 1 -4" 
         scale="0.5 0.5 0.5"
-        animation="property: position; to: 0 1.3 -3; dir: alternate; loop: true; dur: 1200"
+        animation="property: position; to: 0 1.3 -4; dir: alternate; loop: true; dur: 1200"
         interactive-look>
       </a-entity>
 
       <a-entity 
         gltf-model="#cat-model" 
-        position="2 1.2 -3" 
-        scale="1.5 1.5 1.5"
+        position="4 1.2 -5" 
+        scale="2 2 2"
         animation="property: rotation; to: 0 -360 0; loop: true; dur: 2000; easing: linear"
         sound="src: #cat-sound; loop: true; volume: 1"
         interactive-look>
       </a-entity>
 
-      <a-sky color="#111"></a-sky> </a-scene>
+      <a-sky color="#050505"></a-sky>
+      <a-light type="ambient" color="#BBB"></a-light>
+      <a-light type="directional" color="#FFF" intensity="0.6" position="-0.5 1 1"></a-light>
+    </a-scene>
   </body>
 </html>
